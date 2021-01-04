@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>My test page</title>
+  </head>
+  <body>
+    <h1>Create Your Forms</h1>
+    <a href='/logout/'>Logout</a><br>
+    {% if forms %}
+    <ul>
+    {% for form in forms %}
+        <a href="/myform/create/{{form.form_id}}"><li>{{ form.name }}
+            <br>
+            
+        </li></a>
+    {% endfor %}
+    {% else %}
+    No forms created
+    {% endif %}
+    
+    </ul>
+    <form method="POST" action="">{% csrf_token %}
+        <input type="text" name="form_name" placeholder="Form Name">
+        <input type="submit" value='Create Form'>
+    </form>
+  </body>
+</html>

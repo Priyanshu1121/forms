@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>My test page</title>
+  </head>
+  <body><h1>Enter the questions required</h1><br>
+    <a href='/logout/'>Logout</a><br>
+    <form method='POST' name ="text" action="">
+        {% csrf_token %}
+        <input type="text" name="question_text" placeholder="Your Question here">
+        <select name='type' >
+          <option value="text">Subjective</option>
+          <option value="mcq">Multiple Choice</option>
+          <option value="bool">Boolean</option>
+
+        </select>
+        <br>
+        <input type="text" name='option1' placeholder="option1"><br>
+        <input type="text" name='option2' placeholder="option2"><br>
+        <input type="text" name='option3' placeholder="option3"><br>
+        <input type="text" name='option4' placeholder="option4"><br>
+        <input type="submit" name="text" value="create"><br>
+        <p>Subjective and Boolean questiosn doesn't require options</p><br>
+        <h3>Subjective Questions</h3>
+        <ul>
+        {% if questions %}
+          {% for question in questions %}
+            <li>{{ question.question_text }}</li>
+          {% endfor %}
+        {% else %}
+          No questions updates
+        {% endif %}
+        </ul>
+      </form>
+    <br>
+    <hr>
+      <h3>Multiple Choice Questions</h3>
+      <ul>
+      {% if questionsmcq %}
+        {% for question in questionsmcq %}
+          <li>{{ question.question_text }}</li>
+          <ol type="a">
+            <li>{{ question.option1 }}</li>
+            <li>{{ question.option2 }}</li>
+            <li>{{ question.option3 }}</li>
+            <li>{{ question.option4 }}</li>
+          </ol>
+        {% endfor %}
+      {% else %}
+        No questions updates
+      {% endif %}
+      </ul>
+  <br>
+  <hr>
+    <h3>Boolean Questions</h3>
+    <ul>
+      {% if questionsbool %}
+        {% for question in questionsbool %}
+          <li>{{ question.question_text }}</li>
+          <ol type="a">
+            <li>True</li>
+            <li>False</li>
+          </ol>
+        {% endfor %}
+      {% else %}
+        No questions updates
+      {% endif %}
+      </ul>
+  <br>
+    link to copy:<strong> {{ server }}/myform/formview/{{ form.form_id }}</strong><br> 
+    <a href="/myform/formview/{{form.form_id}}">Preview</a><br>
+    <a href="/myform/answers/{{form.form_id}}">Responses</a>
+    
+  </body>
+</html>

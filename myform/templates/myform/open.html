@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>My test page</title>
+  </head>
+  <body>
+    <h1>{{ form.name }}</h1><br>
+    <a href='/logout/'>Logout</a><br>
+    <form method='POST' action="">
+        {% csrf_token %}
+        {% if questions %}
+          {% for question in questions %}
+            {{ question.question_text }}
+          <input type="text" name='question{{ forloop.counter }}'><br>
+          {% endfor %}
+          {% for question in questionsmcq %}
+            {{ question.question_text }}<br>
+          <input type="radio" name='questionmcq{{ forloop.counter }}' value='{{ question.option1 }}'> <label>{{ question.option1 }}</label><br>
+          <input type="radio" name='questionmcq{{ forloop.counter }}' value='{{ question.option2 }}'> <label>{{ question.option2 }}</label><br>
+          <input type="radio" name='questionmcq{{ forloop.counter }}' value='{{ question.option3 }}'> <label>{{ question.option3 }}</label><br>
+          <input type="radio" name='questionmcq{{ forloop.counter }}' value='{{ question.option4 }}'> <label>{{ question.option4 }}</label><br>
+          {% endfor %}
+          {% for question in questionsbool %}
+            {{ question.question_text }}<br>
+          <input type="radio" name='questionbool{{ forloop.counter }}' value='True'> <label>True</label><br>
+          <input type="radio" name='questionbool{{ forloop.counter }}' value='False'> <label>False</label><br>
+          
+          {% endfor %}
+        {% else %}
+          No questions
+        {% endif %}
+        <input type="submit" value="submit">
+       
+    </form>
+  </body>
+</html>
+
+
